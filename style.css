@@ -1,0 +1,89 @@
+/* Basic body styling */
+body { 
+    margin: 0; 
+    padding: 0;
+    overflow: hidden; 
+    background-color: #111111; /* Matches overwhelmedPalette1.bg */
+    font-family: sans-serif; 
+}
+
+canvas { 
+    display: block; 
+}
+
+/* Styling for the emotion title overlay */
+#emotion-title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #FF4500; /* Orange Red (Vermilion) */
+    font-size: 28px; 
+    z-index: 10; 
+    font-weight: bold;
+    pointer-events: none; 
+    text-shadow: 2px 2px 0px #8A2BE2; /* Electric Purple shadow for clash */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Styling for the interactive instructions textbox */
+#interaction-instructions {
+    position: absolute;
+    bottom: 20px;
+    right: 20px; /* Positioned at Bottom Right */
+    width: 230px; 
+    padding: 15px;
+    
+    /* Dark background */
+    background-color: rgba(10, 10, 10, 0.9); 
+    
+    /* REMOVED BORDER */
+    border: none;
+    border-radius: 0px; /* Square/Jagged corners for overwhelmed feel */
+    
+    color: #F0F0F0; 
+    font-size: 13px; 
+    line-height: 1.5; 
+    z-index: 10;
+    
+    /* Interactive properties */
+    cursor: pointer;
+    will-change: max-height;
+    transition: max-height 0.2s ease-out, background-color 0.2s; /* Faster, sharper transition */
+    overflow: hidden; 
+    max-height: 300px; 
+}
+
+#interaction-instructions:hover {
+    background-color: rgba(20, 20, 20, 0.95); 
+    /* REMOVED HOVER BORDER COLOR */
+}
+
+/* Collapsed state styling */
+#interaction-instructions.collapsed {
+    max-height: 40px; 
+}
+
+#instructions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed rgba(0, 69, 0, 0.5); /* Dashed line for anxiety */
+    padding-bottom: 5px;
+    color: #FFFFFF; /* Orange Red header */
+}
+
+#instructions-content p {
+    margin: 0 0 8px 0; 
+}
+
+#instructions-content p:last-child {
+    margin-bottom: 0; 
+}
+
+#toggle-icon {
+    font-weight: bold;
+    font-size: 18px;
+}
