@@ -3,10 +3,10 @@ let capture; // Variable for webcam
 
 // Intense and slightly clashing color palettes
 const overwhelmedPalette1 = {
-  bg: '#111111',      // Very Dark Grey
-  primary: '#FF4500',  // Orange Red (e.g., Vermilion)
-  accent1: '#FFD700',  // Gold (e.g., Bright Yellow)
-  accent2: '#8A2BE2',  // Blue Violet (e.g., Electric Purple)
+  bg: '#111111',      //  Dark Grey
+  primary: '#FF4500',  // Orange Red 
+  accent1: '#FFD700',  // Gold 
+  accent2: '#8A2BE2',  // Blue Violet 
 };
 
 const overwhelmedPalette2 = {
@@ -16,13 +16,12 @@ const overwhelmedPalette2 = {
   accent2: '#FFC107',  // Amber Yellow
 };
 
-const alarmPalette = { // For the burst flash
+const alarmPalette = { // For burst flash
     primary: '#FF0000', // Bright Red
     accent1: '#00FF00', // Bright Green
     accent2: '#0000FF', // Bright Blue
 };
 
-// --- UI Logic ---
 function toggleInfo() {
     const infoBox = document.getElementById('interaction-instructions');
     const icon = document.getElementById('toggle-icon');
@@ -45,7 +44,7 @@ function setup() {
   // Use HSB as requested in original code
   colorMode(HSB, 360, 100, 100, 1); 
   
-  // --- FIX: Performance Optimization ---
+  // --- erformance Optimization ---
   pixelDensity(1);
 
   // --- VIDEO CAPTURE SETUP ---
@@ -66,8 +65,6 @@ function setup() {
 
 function draw() {
   if (overwhelmedInstance) {
-    // IMPORTANT: The Overwhelmed class uses translate(width/2, height/2).
-    // We wrap it in push/pop so the translation doesn't affect the video drawn afterwards.
     push();
     overwhelmedInstance.draw();
     pop();
@@ -91,11 +88,7 @@ function draw() {
       // Draw video
       image(capture, x, y, vidWidth, vidHeight);
       
-      // REMOVED BORDER
-      // noFill();
-      // stroke(270, 80, 90, 0.8); 
-      // strokeWeight(2);
-      // rect(x, y, vidWidth, vidHeight);
+
       pop();
   }
 }
@@ -118,16 +111,16 @@ function mousePressed(event) {
 }
 
 
-// --- Overwhelmed class for managing shards ---
+// ---  class for managing shards ---
 class Overwhelmed {
   constructor() {
     this.shards = [];
-    this.numShards = 250; // High number for density
+    this.numShards = 250; // High  for density
     this.backgroundColor;
     this.currentPalette;
-    this.timeOffset = 0; // General time for noise evolution
+    this.timeOffset = 0; // 
 
-    // Click burst properties (Paralyze & Shatter)
+    // Click burst properties
     this.burstActive = false;
     this.burstOrigin = createVector(0,0);
     this.burstStartTime = 0;
@@ -147,12 +140,12 @@ class Overwhelmed {
   initShards() {
     this.shards = [];
     for (let i = 0; i < this.numShards; i++) {
-      this.shards.push(new OverwhelmedShard(this.currentPalette, this)); // Pass 'this' reference
+      this.shards.push(new OverwhelmedShard(this.currentPalette, this)); 
     }
   }
 
   draw() {
-    // Clear background completely each frame to prevent trails and emphasize jitter
+    // Clear background  each frame to prevent trails and emphasize jitter motion
     background(this.backgroundColor); 
 
     translate(width / 2, height / 2); // Center drawing
@@ -166,16 +159,16 @@ class Overwhelmed {
     if (this.burstActive) {
       let timeElapsed = millis() - this.burstStartTime;
       if (timeElapsed < this.burstFreezeDuration) {
-        isFrozen = true; // Particles freeze during this phase
+        isFrozen = true; // Particles freeze -freeze
       } else if (timeElapsed < (this.burstFreezeDuration + this.burstShatterDuration)) {
-        isShattering = true; // Particles are pushed out during this phase
+        isShattering = true; // Particles are pushed out -flight
         burstProgress = map(timeElapsed - this.burstFreezeDuration, 0, this.burstShatterDuration, 0, 1);
       } else {
         this.burstActive = false; // Burst effect ends
       }
     }
 
-    // Update and draw shards
+    // Update , draw shards
     for (let shard of this.shards) {
       shard.update(mouseX - width/2, mouseY - height/2, this.timeOffset, isFrozen, isShattering, this.burstOrigin, burstProgress);
       shard.show(this.burstActive, isFrozen, this.burstStartTime);
@@ -192,7 +185,7 @@ class Overwhelmed {
 
   onResize() {
     resizeCanvas(windowWidth, windowHeight);
-    this.initShards(); // Reinitialize shards on resize
+    this.initShards(); // re do shards on resize
     background(this.backgroundColor); 
   }
 
@@ -202,13 +195,13 @@ class Overwhelmed {
     this.burstOrigin = createVector(mouseX - width/2, mouseY - height/2); 
     this.burstStartTime = millis();
     
-    // Also switch palette on click for visual variation
+    //  switch palette on click for visual variation
     if (this.currentPalette === overwhelmedPalette1) {
       this.applyPalette(overwhelmedPalette2);
     } else {
       this.applyPalette(overwhelmedPalette1);
     }
-    background(this.backgroundColor); // Clear with new background
+    background(this.backgroundColor); // Clear  new background
   }
 }
 
@@ -275,7 +268,7 @@ class OverwhelmedShard {
         this.acc.add(attractForce);
     }
     
-    // BURST - Shattering Phase
+    // BURST - Shattering 
     if (isShattering) {
         let distToBurst = dist(this.pos.x, this.pos.y, burstOrigin.x, burstOrigin.y);
         if (distToBurst < this.parent.burstRadius) {
